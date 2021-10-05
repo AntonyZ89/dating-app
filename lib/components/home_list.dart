@@ -11,9 +11,7 @@ class HomeList extends StatelessWidget {
       child: ListView.builder(
           scrollDirection: Axis.horizontal,
           itemCount: 10,
-          itemBuilder: (context, index) {
-            return _Profile();
-          }),
+          itemBuilder: (context, index) => const _Profile()),
     );
   }
 }
@@ -30,10 +28,7 @@ class _Profile extends StatelessWidget {
       margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 2.5),
       decoration: const BoxDecoration(
         gradient: LinearGradient(
-          colors: [
-            Color(0xFF937EE1),
-            Color(0xFFFFC1DD),
-          ],
+          colors: [Color(0xFF937EE1), Color(0xFFFFC1DD)],
           stops: [0, 1],
         ),
         borderRadius: BorderRadius.only(
@@ -45,7 +40,7 @@ class _Profile extends StatelessWidget {
       child: Container(
         margin: const EdgeInsets.all(1.5),
         child: Container(
-          padding: const EdgeInsets.all(5),
+          padding: const EdgeInsets.all(6.5),
           decoration: BoxDecoration(
             color: Theme.of(context).scaffoldBackgroundColor,
             borderRadius: const BorderRadius.only(

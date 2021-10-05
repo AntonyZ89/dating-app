@@ -20,6 +20,7 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: 'login',
       routes: {
+        'chat': (context) => const ChatPage(),
         'home': (context) => const HomePage(),
         'login': (context) => const LoginPage(),
       },

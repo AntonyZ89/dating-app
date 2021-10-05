@@ -15,7 +15,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        drawer: const Drawer(),
+        drawer: const HomeDrawer(),
         appBar: AppBar(
             title: const Text('Dating Ape'),
             backgroundColor: Colors.transparent,
@@ -44,21 +44,30 @@ class _HomePageState extends State<HomePage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
-                  padding: const EdgeInsets.all(15),
-                  margin:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 25),
-                  child: const Icon(Icons.close, color: Colors.white),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(99),
-                    color: Colors.black,
+                  margin: const EdgeInsets.only(
+                    right: 30,
+                    top: 25,
+                    bottom: 25,
+                  ),
+                  child: CircleAvatar(
+                    backgroundColor: Colors.black87,
+                    radius: 30,
+                    child: IconButton(
+                      onPressed: () {},
+                      icon: const Icon(Icons.close),
+                      color: Colors.white,
+                    ),
                   ),
                 ),
-                Container(
-                  padding: const EdgeInsets.all(15),
-                  child: const Icon(Icons.favorite, color: Colors.red),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(99),
-                    color: Colors.red[50],
+                CircleAvatar(
+                  backgroundColor: Colors.red[50],
+                  radius: 30,
+                  child: IconButton(
+                    onPressed: () {
+                      Navigator.of(context).pushNamed('chat');
+                    },
+                    icon: const Icon(Icons.favorite),
+                    color: Colors.red,
                   ),
                 ),
               ],
