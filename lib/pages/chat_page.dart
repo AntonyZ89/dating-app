@@ -66,11 +66,11 @@ class _ChatPageState extends State<ChatPage> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: const ChatAppBar(),
-        backgroundColor: Colors.pink[50],
-        body: Padding(
+    return Scaffold(
+      appBar: const ChatAppBar(),
+      backgroundColor: Colors.pink[50],
+      body: SafeArea(
+        child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 12),
           child: Flex(
             direction: Axis.vertical,

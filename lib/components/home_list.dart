@@ -1,23 +1,30 @@
+import 'package:dating_app/models/models.dart';
 import 'package:flutter/material.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 class HomeList extends StatelessWidget {
-  const HomeList({Key? key}) : super(key: key);
+  final List<UserModel> items;
+
+  const HomeList(this.items, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       height: 80,
       margin: const EdgeInsets.only(bottom: 20),
-      child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          itemCount: 10,
-          itemBuilder: (context, index) => const _Profile()),
+      child: ListView(
+        scrollDirection: Axis.horizontal,
+        children: items.map((e) => _Profile(e)).toList(),
+      ),
     );
   }
 }
 
 class _Profile extends StatelessWidget {
-  const _Profile({
+  final UserModel item;
+
+  const _Profile(
+    this.item, {
     Key? key,
   }) : super(key: key);
 
@@ -55,8 +62,9 @@ class _Profile extends StatelessWidget {
               topLeft: Radius.circular(99),
               topRight: Radius.circular(99),
             ),
-            child: Image.network(
-              'https://via.placeholder.com/1080x1920',
+            child: FadeInImage.memoryNetwork(
+              placeholder: kTransparentImage,
+              image: item.picture,
               fit: BoxFit.cover,
             ),
           ),

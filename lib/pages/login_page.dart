@@ -9,9 +9,9 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: Column(
+    return Scaffold(
+      body: SafeArea(
+        child: Column(
           children: const [
             _Title(),
             _Logo(),
@@ -24,9 +24,7 @@ class LoginPage extends StatelessWidget {
 }
 
 class _Title extends StatelessWidget {
-  const _Title({
-    Key? key,
-  }) : super(key: key);
+  const _Title({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +35,7 @@ class _Title extends StatelessWidget {
             borderRadius: BorderRadius.circular(999),
             boxShadow: const [
               BoxShadow(
-                offset: Offset(0, 0),
+                offset: Offset.zero,
                 blurRadius: 50,
                 spreadRadius: 130,
                 color: Color(0x28FEA0C6),
@@ -51,10 +49,7 @@ class _Title extends StatelessWidget {
               fontWeight: FontWeight.w500,
               foreground: Paint()
                 ..shader = const LinearGradient(
-                  colors: [
-                    Color(0xFF937EE1),
-                    Color(0xFFFFC1DD),
-                  ],
+                  colors: [Color(0xFF937EE1), Color(0xFFFFC1DD)],
                   stops: [0.5, 0.6],
                 ).createShader(
                   const Rect.fromLTWH(0.0, 0.0, 400.0, 70.0),

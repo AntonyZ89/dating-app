@@ -1,7 +1,9 @@
 import 'package:dating_app/components/components.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:dating_app/factories/user_factory.dart';
+import 'package:dating_app/models/models.dart';
 import 'package:flutter/material.dart';
 import 'package:transformer_page_view/transformer_page_view.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -11,33 +13,41 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final List<UserModel> profiles = UserFactory().generateFakeList(length: 10);
+  final List<UserModel> profilesList =
+      UserFactory().generateFakeList(length: 10);
+
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        drawer: const HomeDrawer(),
-        appBar: AppBar(
-            title: const Text('Dating Ape'),
-            backgroundColor: Colors.transparent,
-            foregroundColor: Colors.black,
-            elevation: 0,
-            actions: [
-              CircleAvatar(
-                child: const Icon(Icons.person),
-                backgroundColor: Colors.grey[350],
-                foregroundColor: Colors.white,
-              ),
-            ]),
-        body: Column(
+    return Scaffold(
+      drawer: const HomeDrawer(),
+      appBar: AppBar(
+          title: const Text('Dating Ape'),
+          backgroundColor: Colors.transparent,
+          foregroundColor: Colors.black,
+          elevation: 0,
+          actions: [
+            CircleAvatar(
+              child: const Icon(Icons.person),
+              backgroundColor: Colors.grey[350],
+              foregroundColor: Colors.white,
+            ),
+          ]),
+      body: SafeArea(
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const HomeList(),
+            HomeList(profilesList),
             Expanded(
-              child: TransformerPageView(
-                loop: true,
-                transformer: ScaleAndFadeTransformer(),
-                itemBuilder: (BuildContext context, int index) => const Card(),
-                itemCount: 3,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: TransformerPageView(
+                  loop: true,
+                  transformer: ScaleAndFadeTransformer(),
+                  itemBuilder: (BuildContext context, int index) =>
+                      Card(profiles[index]),
+                  itemCount: profiles.length,
+                ),
               ),
             ),
             Row(
@@ -80,7 +90,9 @@ class _HomePageState extends State<HomePage> {
 }
 
 class Card extends StatelessWidget {
-  const Card({Key? key}) : super(key: key);
+  final UserModel item;
+
+  const Card(this.item, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -94,13 +106,16 @@ class Card extends StatelessWidget {
               bottomLeft: Radius.zero,
               bottomRight: Radius.circular(40),
             ),
-            child: Image.network('https://via.placeholder.com/1080x1920'),
+            child: FadeInImage.memoryNetwork(
+              placeholder: kTransparentImage,
+              image: item.picture,
+            ),
           ),
         ),
         Positioned(
           bottom: 20,
-          left: MediaQuery.of(context).size.width / 5,
-          right: MediaQuery.of(context).size.width / 5,
+          left: MediaQuery.of(context).size.width / 6.5,
+          right: MediaQuery.of(context).size.width / 6.5,
           child: Container(
             height: 80,
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
@@ -112,22 +127,21 @@ class Card extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  'Name Here',
-                  style: TextStyle(
+                Text(
+                  item.name,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
                 Row(
-                  children: const [
-                    Icon(
-                      Icons.place,
-                      size: 18,
-                    ),
+                  children: [
+                    const Icon(Icons.place, size: 18),
                     Text(
-                      'Name Here',
-                      style: TextStyle(
+                      item.location,
+                      style: const TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w300,
                       ),
