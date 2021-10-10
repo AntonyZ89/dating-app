@@ -75,7 +75,7 @@ class _Logo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(10),
-      child: Image.asset(logo, width: 25),
+      child: Image.asset(logo, width: 20),
       decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(50),

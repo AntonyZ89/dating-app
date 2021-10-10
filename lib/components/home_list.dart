@@ -56,17 +56,30 @@ class _Profile extends StatelessWidget {
               topRight: Radius.circular(27),
             ),
           ),
-          child: ClipRRect(
-            borderRadius: const BorderRadius.only(
-              bottomRight: Radius.circular(99),
-              topLeft: Radius.circular(99),
-              topRight: Radius.circular(99),
-            ),
-            child: FadeInImage.memoryNetwork(
-              placeholder: kTransparentImage,
-              image: item.picture,
-              fit: BoxFit.cover,
-            ),
+          child: Stack(
+            children: [
+              const Center(
+                child: SizedBox(
+                  width: 20,
+                  height: 20,
+                  child: CircularProgressIndicator(),
+                ),
+              ),
+              Positioned.fill(
+                child: ClipRRect(
+                  borderRadius: const BorderRadius.only(
+                    bottomRight: Radius.circular(99),
+                    topLeft: Radius.circular(99),
+                    topRight: Radius.circular(99),
+                  ),
+                  child: FadeInImage.memoryNetwork(
+                    placeholder: kTransparentImage,
+                    image: item.picture,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ),

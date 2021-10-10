@@ -66,8 +66,10 @@ class _ChatPageState extends State<ChatPage> {
 
   @override
   Widget build(BuildContext context) {
+    final item = ModalRoute.of(context)!.settings.arguments as UserModel;
+
     return Scaffold(
-      appBar: const ChatAppBar(),
+      appBar: ChatAppBar(item),
       backgroundColor: Colors.pink[50],
       body: SafeArea(
         child: Padding(

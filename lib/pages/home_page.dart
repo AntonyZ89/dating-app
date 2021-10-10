@@ -17,6 +17,8 @@ class _HomePageState extends State<HomePage> {
   final List<UserModel> profilesList =
       UserFactory().generateFakeList(length: 10);
 
+  int index = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,6 +45,13 @@ class _HomePageState extends State<HomePage> {
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: TransformerPageView(
                   loop: true,
+                  onPageChanged: (newIndex) {
+                    if (newIndex != null) {
+                      setState(() {
+                        index = newIndex;
+                      });
+                    }
+                  },
                   transformer: ScaleAndFadeTransformer(),
                   itemBuilder: (BuildContext context, int index) =>
                       Card(profiles[index]),
@@ -74,7 +83,8 @@ class _HomePageState extends State<HomePage> {
                   radius: 30,
                   child: IconButton(
                     onPressed: () {
-                      Navigator.of(context).pushNamed('chat');
+                      Navigator.of(context)
+                          .pushNamed('chat', arguments: profiles[index]);
                     },
                     icon: const Icon(Icons.favorite),
                     color: Colors.red,
@@ -99,17 +109,24 @@ class Card extends StatelessWidget {
     return Stack(
       children: [
         Center(
-          child: ClipRRect(
-            borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(40),
-              topRight: Radius.circular(40),
-              bottomLeft: Radius.zero,
-              bottomRight: Radius.circular(40),
-            ),
-            child: FadeInImage.memoryNetwork(
-              placeholder: kTransparentImage,
-              image: item.picture,
-            ),
+          child: Stack(
+            children: [
+              const Center(child: CircularProgressIndicator()),
+              Center(
+                child: ClipRRect(
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(40),
+                    topRight: Radius.circular(40),
+                    bottomLeft: Radius.zero,
+                    bottomRight: Radius.circular(40),
+                  ),
+                  child: FadeInImage.memoryNetwork(
+                    placeholder: kTransparentImage,
+                    image: item.picture,
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
         Positioned(

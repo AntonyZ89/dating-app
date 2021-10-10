@@ -1,7 +1,10 @@
+import 'package:dating_app/models/models.dart';
 import 'package:flutter/material.dart';
 
 class ChatAppBar extends StatefulWidget implements PreferredSizeWidget {
-  const ChatAppBar({Key? key})
+  final UserModel item;
+
+  const ChatAppBar(this.item, {Key? key})
       : preferredSize = const Size.fromHeight(kToolbarHeight),
         super(key: key);
 
@@ -16,7 +19,7 @@ class _ChatAppBarState extends State<ChatAppBar> {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: const _Title(),
+      title: _Title(widget.item),
       foregroundColor: Colors.black87,
       actions: [
         IconButton(
@@ -35,9 +38,9 @@ class _ChatAppBarState extends State<ChatAppBar> {
 }
 
 class _Title extends StatelessWidget {
-  const _Title({
-    Key? key,
-  }) : super(key: key);
+  final UserModel item;
+
+  const _Title(this.item, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -49,31 +52,34 @@ class _Title extends StatelessWidget {
           foregroundColor: Colors.white,
         ),
         const SizedBox(width: 15),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
-              'Name Here',
-              style: TextStyle(fontSize: 16),
-            ),
-            Row(
-              children: [
-                Container(
-                  width: 5,
-                  height: 5,
-                  margin: const EdgeInsets.only(right: 5),
-                  decoration: BoxDecoration(
-                    color: Colors.green,
-                    borderRadius: BorderRadius.circular(2.5),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                item.name,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(fontSize: 16),
+              ),
+              Row(
+                children: [
+                  Container(
+                    width: 5,
+                    height: 5,
+                    margin: const EdgeInsets.only(right: 5),
+                    decoration: BoxDecoration(
+                      color: Colors.green,
+                      borderRadius: BorderRadius.circular(2.5),
+                    ),
                   ),
-                ),
-                const Text(
-                  'Status',
-                  style: TextStyle(fontSize: 12),
-                ),
-              ],
-            ),
-          ],
+                  const Text(
+                    'Status',
+                    style: TextStyle(fontSize: 12),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ],
     );
